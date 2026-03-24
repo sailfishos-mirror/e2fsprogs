@@ -1,4 +1,4 @@
-E2fsprogs 1.47.4 (March 6, 2025)
+E2fsprogs 1.47.4 (March 6, 2026)
 ================================
 
 Updates/Fixes since v1.47.3:
