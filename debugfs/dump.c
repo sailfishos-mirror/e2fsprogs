@@ -317,6 +317,16 @@ static int rdump_dirent(struct ext2_dir_entry *dirent,
 	strncpy(name, dirent->name, thislen);
 	name[thislen] = 0;
 
+	/* Path-traversal guard: reject entry names that would escape the
+	 * destination directory. A valid ext2/3/4 filesystem never contains
+	 * a name with '/' or an empty name; e2fsck treats such names as
+	 * corruption (PR_2_BAD_NAME). */
+	if (name[0] == 0 || strchr(name, '/')) {
+		com_err("rdump", 0, "skipping entry with unsafe name (inode %u)",
+			dirent->inode);
+		return 0;
+	}
+
 	if (debugfs_read_inode(dirent->inode, &inode, name))
 		return 0;
 
