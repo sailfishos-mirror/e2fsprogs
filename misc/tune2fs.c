@@ -778,6 +778,9 @@ static int update_xattr_entry_hashes(ext2_filsys fs,
 	errcode_t retval;
 
 	while (entry < end && !EXT2_EXT_IS_LAST_ENTRY(entry)) {
+		if ((char *) entry + sizeof(struct ext2_ext_attr_entry) >=
+		    (char *) end)
+			fatal_err(0, "corrupted extended attribute field");
 		if (entry->e_value_inum) {
 			retval = ext2fs_ext_attr_hash_entry2(fs, entry, NULL,
 							     &entry->e_hash);
