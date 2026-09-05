@@ -351,7 +351,7 @@ void do_rdump(int argc, ss_argv_t argv, int sci_idx EXT2FS_ATTR((unused)),
 	argc--;
 
 	/* Ensure last arg is a directory. */
-	if (stat(dest_dir, &st) == -1) {
+	if (lstat(dest_dir, &st) == -1) {
 		com_err("rdump", errno, "while statting %s", dest_dir);
 		return;
 	}
