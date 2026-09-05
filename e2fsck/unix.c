@@ -1211,6 +1211,7 @@ static errcode_t try_open_fs(e2fsck_t ctx, int flags, io_manager io_ptr,
 
 	if (retval == 0) {
 		(*ret_fs)->priv_data = ctx;
+		(*ret_fs)->now = ctx->now;
 		e2fsck_set_bitmap_type(*ret_fs, EXT2FS_BMAP64_RBTREE,
 				       "default", NULL);
 	}
