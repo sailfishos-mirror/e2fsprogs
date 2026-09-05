@@ -340,7 +340,7 @@ void do_rdump(int argc, ss_argv_t argv, int sci_idx EXT2FS_ATTR((unused)),
 {
 	struct stat st;
 	char *dest_dir;
-	int i;
+	int i, err;
 
 	if (common_args_process(argc, argv, 3, INT_MAX, "rdump",
 				"<directory>... <native directory>", 0))
@@ -350,14 +350,25 @@ void do_rdump(int argc, ss_argv_t argv, int sci_idx EXT2FS_ATTR((unused)),
 	dest_dir = argv[argc - 1];
 	argc--;
 
-	/* Ensure last arg is a directory. */
-	if (lstat(dest_dir, &st) == -1) {
-		com_err("rdump", errno, "while statting %s", dest_dir);
-		return;
-	}
-	if (!S_ISDIR(st.st_mode)) {
-		com_err("rdump", 0, "%s is not a directory", dest_dir);
-		return;
+	err = lstat(dest_dir, &st);
+	if (err < 0) {
+		if (errno == ENOENT) {
+			if (mkdir(dest_dir, 0755) == -1) {
+				com_err("rdump", errno, "while creating %s",
+					dest_dir);
+				return;
+			}
+		} else {
+			com_err("rdump", errno, "while statting %s",
+				dest_dir);
+			return;
+		}
+	} else {
+		if (!S_ISDIR(st.st_mode)) {
+			com_err("rdump", 0, "%s is not a directory",
+				dest_dir);
+			return;
+		}
 	}
 
 	for (i = 1; i < argc; i++) {
