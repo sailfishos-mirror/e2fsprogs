@@ -1284,6 +1284,7 @@ AC_CHECK_FUNCS(m4_flatten([
 	strptime
 	strtoull
 	sync_file_range
+	syscall
 	sysconf
 	usleep
 	utime

@@ -13978,6 +13978,12 @@ then :
   printf "%s\n" "#define HAVE_SYNC_FILE_RANGE 1" >>confdefs.h
 
 fi
+ac_fn_c_check_func "$LINENO" "syscall" "ac_cv_func_syscall"
+if test "x$ac_cv_func_syscall" = xyes
+then :
+  printf "%s\n" "#define HAVE_SYSCALL 1" >>confdefs.h
+
+fi
 ac_fn_c_check_func "$LINENO" "sysconf" "ac_cv_func_sysconf"
 if test "x$ac_cv_func_sysconf" = xyes
 then :
