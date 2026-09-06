@@ -81,6 +81,9 @@
 /* Define to 1 if you have the 'chflags' function. */
 #undef HAVE_CHFLAGS
 
+/* Define to 1 if you have the 'daemon' function. */
+#undef HAVE_DAEMON
+
 /* Define if the GNU dcgettext() function is already present or preinstalled.
    */
 #undef HAVE_DCGETTEXT
@@ -129,6 +132,9 @@
 
 /* Define to 1 if you have the 'fsync' function. */
 #undef HAVE_FSYNC
+
+/* Define to 1 if FS_IOC_READ_VERITY_METADATA ioctl is available */
+#undef HAVE_FS_IOC_READ_VERITY_METADATA
 
 /* Define to 1 if you have the 'ftruncate64' function. */
 #undef HAVE_FTRUNCATE64
